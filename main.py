@@ -7,7 +7,7 @@ def main():
 
 
 def test_sum():
-    assert sum(10, 20), 30
+    assert sum(10, 20), 40
 
 
 if __name__ == "__main__":
