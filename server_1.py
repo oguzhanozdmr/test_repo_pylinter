@@ -32,7 +32,7 @@ def register():
         return jsonify({
             'status': True,
             'message': "register succesful",
-            'data':{}})
+            'data': {}})
     return jsonify({
         'status': False,
         'message': "register fail",
