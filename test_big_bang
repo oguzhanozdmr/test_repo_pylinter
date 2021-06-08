@@ -1,0 +1,78 @@
+import requests
+from requests.models import Response
+from jsonschema import validate
+import unittest
+
+login_schema = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "status": {
+        "type": "boolean"
+        },
+        "message": {
+        "type": "string"
+        },
+        "data": {
+        "type": "object"
+        }
+    },
+    "required": [
+        "status",
+        "message"
+    ]
+}
+
+
+def test_server_1_login_status():
+    r = requests.post('http://127.0.0.1:5001/login',json={
+        'user_name':'oguzhan',
+        'password':'12345'
+    })
+    assert r.status_code, 200
+
+def test_schema():
+    r = requests.post('http://127.0.0.1:5001/login',json={
+        'user_name':'oguzhan',
+        'password':'12345'
+    })
+    validate(r.json(), schema=login_schema)
+    r = requests.post('http://127.0.0.1:5001/register',json={
+        'user_name':'oguzhan',
+        'password':'12345'
+    })
+    validate(r.json(), schema=login_schema)
+
+
+def test_server_1_succes_login():
+    r = requests.post('http://127.0.0.1:5001/login',json={
+        'user_name':'oguzhan',
+        'password':'12345'
+    })
+    response = r.json()
+    assert response['status']
+    assert 'token' in response['data'] 
+
+def test_server_1_fail_login():
+    r = requests.post('http://127.0.0.1:5001/login',json={
+        'user_name':'fail',
+        'password':'fail'
+    })
+    response = r.json()
+    assert response['status'] == False
+    assert 'token' not in response['data'] 
+
+def test_backend():
+    r = requests.post('http://127.0.0.1:5004/login',json={
+        'user_name':'oguzhan',
+        'password':'12345'
+    })
+    response = r.json()
+    assert response['status']
+    assert 'token' in response['data']
+
+def test_back_end_read():
+    r = requests.get("http://127.0.0.1:5004/getdata")
+    response = r.json()
+    assert response["txt"]
+    
