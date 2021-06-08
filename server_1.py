@@ -10,18 +10,18 @@ def index():
  
 @app.route('/login', methods=["POST"])
 def login():
-    if request.get_json() == {'user_name':'oguzhan', 'password':'12345'}:
+    if request.get_json() == {'user_name': 'oguzhan', 'password': '12345'}:
         return  jsonify({
             'status': True,
             'message': 'login successful',
-            'data':{
+            'data': {
                 'token': 'test-token'
             }
         })
     else:
         return jsonify({
             'status': False,
-            'message':"login error",
+            'message': "login error",
             'data':{}})
 
 @app.route('/register', methods=['POST'])
@@ -31,11 +31,11 @@ def register():
             handle.write(request.get_json()['user_name'])
         return jsonify({
             'status': True,
-            'message':"register succesful",
+            'message': "register succesful",
             'data':{}})
     return jsonify({
         'status': False,
-        'message':"register fail",
+        'message': "register fail",
         'data':{}})
 
 
