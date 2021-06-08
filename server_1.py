@@ -11,7 +11,7 @@ def index():
 @app.route('/login', methods=["POST"])
 def login():
     if request.get_json() == {'user_name': 'oguzhan', 'password': '12345'}:
-        return  jsonify({
+        return jsonify({
             'status': True,
             'message': 'login successful',
             'data': {
@@ -22,7 +22,7 @@ def login():
         return jsonify({
             'status': False,
             'message': "login error",
-            'data':{}})
+            'data': {}})
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -36,7 +36,7 @@ def register():
     return jsonify({
         'status': False,
         'message': "register fail",
-        'data':{}})
+        'data': {}})
 
 
 def start_server():

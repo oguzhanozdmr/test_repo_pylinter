@@ -23,7 +23,7 @@ def login_post(user_data):
     }) 
     return r.json()
 
-@app.route('/getdata',methods=['GET'])
+@app.route('/getdata', methods=['GET'])
 def get_data():
     r = requests.get('http://127.0.0.1:5002/read')
     data = r.json()
